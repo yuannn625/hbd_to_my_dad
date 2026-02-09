@@ -8,7 +8,8 @@ const messages = [
   "我很多時候都想幫忙，但又幫不上，希望趕緊有一天，我能幫你承擔更多的事情",
   "我希望你可以不要把自己逼太緊，照顧自己的身心靈也是很重要的",
   "最後再次祝你生日快樂!! 🎂🎂🎂",
-  "希望你永遠平安健康，心想事成 😁😁"
+  "希望你永遠平安健康，心想事成 😁😁",
+  "by 芭樂哥"
 ];
 
 let index = 0;
@@ -35,7 +36,7 @@ function checkPassword() {
     document.getElementById("content").classList.remove("hidden");
     error.textContent = "";
 
-    // ✅ 使用者互動時先啟動音樂（靜音）
+    // 啟動音樂權限（靜音）
     bgm.play().catch(() => {});
     
     if (!started) {
@@ -48,16 +49,9 @@ function checkPassword() {
   }
 }
 
-// 每行顯示 5 秒
+// 每行停留 4 秒
 function showNextLine() {
-  if (index >= messages.length) {
-    // 顯示照片
-    setTimeout(() => {
-      document.getElementById("content").classList.add("hidden");
-      document.getElementById("photo-screen").classList.remove("hidden");
-    }, 5000);
-    return;
-  }
+  if (index >= messages.length) return;
 
   const textEl = document.getElementById("text");
   textEl.style.opacity = 0;
@@ -66,12 +60,12 @@ function showNextLine() {
     textEl.textContent = messages[index];
     textEl.style.opacity = 1;
 
-    // 第一行文字出現時解除靜音（保證有聲音）
+    // 第一行解除靜音，確保有聲音
     if (index === 0) {
       bgm.muted = false;
     }
 
     index++;
-    setTimeout(showNextLine, 5000);
+    setTimeout(showNextLine, 4000); // ← 改成 4 秒
   }, 800);
 }
