@@ -1,15 +1,19 @@
 const CORRECT_PASSWORD = "0209";
 
 const messages = [
-  "爸爸，祝您生日快樂!!!",
-  "希望您永遠開心快樂，",
-  "平安健康，"
+  "爸爸:",
+  "祝您生日快樂!",
+  "上大學用特別一點的賀卡展現一下^^",
+  "這陣子你真的辛苦了，我也很難用言語形容這種辛苦...",
+  "我很多時候都想幫忙，但又幫不上，希望趕緊有一天，我能幫你承擔更多的事情",
+  "我希望你可以不要把自己逼太緊，照顧自己的身心靈也是很重要的",
+  "最後再次祝你生日快樂!! 🎂🎂🎂",
+  "希望你永遠平安健康，心想事成 😁😁"
 ];
 
 let index = 0;
-let animationStarted = false;
-
-const song = document.getElementById("birthdaySong");
+let started = false;
+const bgm = document.getElementById("bgm");
 
 // 點信封
 function openEnvelope() {
@@ -31,22 +35,29 @@ function checkPassword() {
     document.getElementById("content").classList.remove("hidden");
     error.textContent = "";
 
-    // ✅ 關鍵：先用「使用者互動」啟動播放權限（靜音）
-    song.play().catch(() => {});
+    // ✅ 使用者互動時先啟動音樂（靜音）
+    bgm.play().catch(() => {});
     
-    if (!animationStarted) {
-      animationStarted = true;
+    if (!started) {
+      started = true;
       index = 0;
-      showNextMessage();
+      showNextLine();
     }
   } else {
     error.textContent = "密碼錯誤，請再試一次";
   }
 }
 
-// 文字一段段顯示
-function showNextMessage() {
-  if (index >= messages.length) return;
+// 每行顯示 5 秒
+function showNextLine() {
+  if (index >= messages.length) {
+    // 顯示照片
+    setTimeout(() => {
+      document.getElementById("content").classList.add("hidden");
+      document.getElementById("photo-screen").classList.remove("hidden");
+    }, 5000);
+    return;
+  }
 
   const textEl = document.getElementById("text");
   textEl.style.opacity = 0;
@@ -55,12 +66,12 @@ function showNextMessage() {
     textEl.textContent = messages[index];
     textEl.style.opacity = 1;
 
-    // 🎶 最後一句：解除靜音，真的播放
-    if (index === messages.length - 1) {
-      song.muted = false;
+    // 第一行文字出現時解除靜音（保證有聲音）
+    if (index === 0) {
+      bgm.muted = false;
     }
 
     index++;
-    setTimeout(showNextMessage, 3000);
-  }, 1000);
+    setTimeout(showNextLine, 5000);
+  }, 800);
 }
