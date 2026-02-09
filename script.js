@@ -9,10 +9,11 @@ const messages = [
 let index = 0;
 let animationStarted = false;
 
+const song = document.getElementById("birthdaySong");
+
 // 點信封
 function openEnvelope() {
-  const envelope = document.querySelector(".envelope");
-  envelope.classList.add("open");
+  document.querySelector(".envelope").classList.add("open");
 
   setTimeout(() => {
     document.getElementById("envelope-screen").classList.add("hidden");
@@ -30,6 +31,9 @@ function checkPassword() {
     document.getElementById("content").classList.remove("hidden");
     error.textContent = "";
 
+    // ✅ 關鍵：先用「使用者互動」啟動播放權限（靜音）
+    song.play().catch(() => {});
+    
     if (!animationStarted) {
       animationStarted = true;
       index = 0;
@@ -48,4 +52,15 @@ function showNextMessage() {
   textEl.style.opacity = 0;
 
   setTimeout(() => {
-    t
+    textEl.textContent = messages[index];
+    textEl.style.opacity = 1;
+
+    // 🎶 最後一句：解除靜音，真的播放
+    if (index === messages.length - 1) {
+      song.muted = false;
+    }
+
+    index++;
+    setTimeout(showNextMessage, 3000);
+  }, 1000);
+}
