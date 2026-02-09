@@ -7,7 +7,9 @@ const messages = [
 ];
 
 let index = 0;
+let animationStarted = false;
 
+// 點信封
 function openEnvelope() {
   const envelope = document.querySelector(".envelope");
   envelope.classList.add("open");
@@ -15,9 +17,10 @@ function openEnvelope() {
   setTimeout(() => {
     document.getElementById("envelope-screen").classList.add("hidden");
     document.getElementById("login").classList.remove("hidden");
-  }, 1000);
+  }, 1800);
 }
 
+// 檢查密碼
 function checkPassword() {
   const input = document.getElementById("password").value;
   const error = document.getElementById("error");
@@ -25,12 +28,19 @@ function checkPassword() {
   if (input === CORRECT_PASSWORD) {
     document.getElementById("login").classList.add("hidden");
     document.getElementById("content").classList.remove("hidden");
-    showNextMessage();
+    error.textContent = "";
+
+    if (!animationStarted) {
+      animationStarted = true;
+      index = 0;
+      showNextMessage();
+    }
   } else {
     error.textContent = "密碼錯誤，請再試一次";
   }
 }
 
+// 文字一段段顯示
 function showNextMessage() {
   if (index >= messages.length) return;
 
@@ -38,9 +48,4 @@ function showNextMessage() {
   textEl.style.opacity = 0;
 
   setTimeout(() => {
-    textEl.textContent = messages[index];
-    textEl.style.opacity = 1;
-    index++;
-    setTimeout(showNextMessage, 3000);
-  }, 1000);
-}
+    t
