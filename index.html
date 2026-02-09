@@ -8,28 +8,34 @@
 </head>
 <body>
 
-  <!-- 信封畫面 -->
-  <div class="container" id="envelope-screen">
-    <div class="envelope" onclick="openEnvelope()">
-      <div class="envelope-top"></div>
-      <div class="envelope-body"></div>
-    </div>
-    <p class="hint">點擊信封</p>
+<!-- ===== 信封畫面 ===== -->
+<div class="container" id="envelope-screen">
+  <div class="envelope" onclick="openEnvelope()">
+    <div class="letter"></div>
+    <div class="envelope-top"></div>
+    <div class="envelope-body"></div>
   </div>
+  <p class="hint">點擊信封</p>
+</div>
 
-  <!-- 密碼畫面 -->
-  <div class="container hidden" id="login">
-    <h2>請輸入密碼</h2>
-    <input type="password" id="password" placeholder="密碼" />
-    <button onclick="checkPassword()">進入</button>
-    <p id="error"></p>
-  </div>
+<!-- ===== 密碼畫面 ===== -->
+<div class="container hidden" id="login">
+  <h2>請輸入密碼</h2>
+  <input type="password" id="password" placeholder="密碼" />
+  <button onclick="checkPassword()">進入</button>
+  <p id="error"></p>
+</div>
 
-  <!-- 內容畫面 -->
-  <div class="container hidden" id="content">
-    <h1 id="text"></h1>
-  </div>
+<!-- ===== 文字畫面 ===== -->
+<div class="container hidden" id="content">
+  <h1 id="text"></h1>
+</div>
 
-  <script src="script.js"></script>
+<!-- ===== 生日歌（公共領域、鋼琴版） ===== -->
+<audio id="birthdaySong" preload="auto">
+  <source src="https://upload.wikimedia.org/wikipedia/commons/4/45/Happy_Birthday_to_You_%28instrumental%29.ogg" type="audio/ogg">
+</audio>
+
+<script src="script.js"></script>
 </body>
 </html>
